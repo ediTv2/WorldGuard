@@ -24,8 +24,7 @@ import com.sk89q.worldguard.bukkit.WorldConfiguration;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import org.bukkit.World;
 
-import static com.sk89q.worldguard.bukkit.BukkitUtil.isBlockWater;
-import static com.sk89q.worldguard.bukkit.BukkitUtil.setBlockToWater;
+import static com.sk89q.worldguard.bukkit.BukkitUtil.*;
 
 public final class SpongeUtil {
 
@@ -48,7 +47,8 @@ public final class SpongeUtil {
         for (int cx = -wcfg.spongeRadius; cx <= wcfg.spongeRadius; cx++) {
             for (int cy = -wcfg.spongeRadius; cy <= wcfg.spongeRadius; cy++) {
                 for (int cz = -wcfg.spongeRadius; cz <= wcfg.spongeRadius; cz++) {
-                    if (isBlockWater(world, ox + cx, oy + cy, oz + cz)) {
+                    if (isBlockWater(world, ox + cx, oy + cy, oz + cz)
+                            || isBlockLava(world, ox + cx, oy + cy, oz + cz)) {
                         world.getBlockAt(ox + cx, oy + cy, oz + cz).setTypeId(0);
                     }
                 }
@@ -75,6 +75,8 @@ public final class SpongeUtil {
             for (int cz = oz - wcfg.spongeRadius - 1; cz <= oz + wcfg.spongeRadius + 1; cz++) {
                 if (isBlockWater(world, cx, cy, cz)) {
                     setBlockToWater(world, cx + 1, cy, cz);
+                } else if (isBlockLava(world, cx, cy, cz)) {
+                    setBlockToLava(world, cx + 1, cy, cz);
                 }
             }
         }
@@ -85,6 +87,8 @@ public final class SpongeUtil {
             for (int cz = oz - wcfg.spongeRadius - 1; cz <= oz + wcfg.spongeRadius + 1; cz++) {
                 if (isBlockWater(world, cx, cy, cz)) {
                     setBlockToWater(world, cx - 1, cy, cz);
+                } else if (isBlockLava(world, cx, cy, cz)) {
+                    setBlockToLava(world, cx - 1, cy, cz);
                 }
             }
         }
@@ -95,6 +99,8 @@ public final class SpongeUtil {
             for (int cz = oz - wcfg.spongeRadius - 1; cz <= oz + wcfg.spongeRadius + 1; cz++) {
                 if (isBlockWater(world, cx, cy, cz)) {
                     setBlockToWater(world, cx, cy + 1, cz);
+                } else if (isBlockLava(world, cx, cy, cz)) {
+                    setBlockToLava(world, cx, cy + 1, cz);
                 }
             }
         }
@@ -105,6 +111,8 @@ public final class SpongeUtil {
             for (int cz = oz - wcfg.spongeRadius - 1; cz <= oz + wcfg.spongeRadius + 1; cz++) {
                 if (isBlockWater(world, cx, cy, cz)) {
                     setBlockToWater(world, cx, cy - 1, cz);
+                } else if (isBlockLava(world, cx, cy, cz)) {
+                    setBlockToLava(world, cx, cy - 1, cz);
                 }
             }
         }
@@ -115,6 +123,8 @@ public final class SpongeUtil {
             for (cy = oy - wcfg.spongeRadius - 1; cy <= oy + wcfg.spongeRadius + 1; cy++) {
                 if (isBlockWater(world, cx, cy, cz)) {
                     setBlockToWater(world, cx, cy, cz + 1);
+                } else if (isBlockLava(world, cx, cy, cz)) {
+                    setBlockToLava(world, cx, cy, cz + 1);
                 }
             }
         }
@@ -125,6 +135,8 @@ public final class SpongeUtil {
             for (cy = oy - wcfg.spongeRadius - 1; cy <= oy + wcfg.spongeRadius + 1; cy++) {
                 if (isBlockWater(world, cx, cy, cz)) {
                     setBlockToWater(world, cx, cy, cz - 1);
+                } else if (isBlockLava(world, cx, cy, cz)) {
+                    setBlockToLava(world, cx, cy, cz - 1);
                 }
             }
         }
