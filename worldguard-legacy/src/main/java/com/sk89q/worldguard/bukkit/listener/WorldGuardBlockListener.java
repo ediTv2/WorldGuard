@@ -134,7 +134,7 @@ public class WorldGuardBlockListener implements Listener {
             return;
         }
 
-        if (wcfg.simulateSponge && isWater) {
+        if (wcfg.simulateSponge && (isWater || isLava)) {
             int ox = blockTo.getX();
             int oy = blockTo.getY();
             int oz = blockTo.getZ();
